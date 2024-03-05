@@ -4,5 +4,5 @@
 
 | Name Surname (initials) | GUID                                     |
 | ----------------------- | ---------------------------------------- |
-| AB                      | `{FD9D086C-532F-4AAC-BB99-69D7798837D8}` |
-| Jan Kowalski            | `{44FBFCF5-4430-4964-878D-1867DC679E0D}` |
+| Bartosz Podemski        | `{6AF1F1EC-5213-487C-A281-CBD423E4BEB7}` |
+| Wojciech Michalak       | `{7ADBCF9B-8256-4E85-8935-3960ED4F97FB}` |
