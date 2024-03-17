@@ -4,5 +4,5 @@
 
 | Name Surname (initials) | GUID                                     |
 | ----------------------- | ---------------------------------------- |
-| BP                      | `{6AF1F1EC-5213-487C-A281-CBD423E4BEB7}` |
-| WM                      | `{7ADBCF9B-8256-4E85-8935-3960ED4F97FB}` |
+| Bartosz Podemski (BP)   | `{6AF1F1EC-5213-487C-A281-CBD423E4BEB7}` |
+| Wojciech Michalak (WM)  | `{7ADBCF9B-8256-4E85-8935-3960ED4F97FB}` |
