@@ -4,6 +4,7 @@
     {
         private int _width;
         private int _height;
+        private bool _isActive = false;
         private List<Ball> _balls = new List<Ball>();
 
         public PoolTable(int width, int height)
@@ -12,9 +13,8 @@
             _height = height;
         }
 
-        public void CreateBalls(int ballsQuantity)
+        public void CreateBalls(int ballsQuantity, int radius)
         {
-            int radius = 10;
             Random random = new Random();
             for (int i = 0; i < ballsQuantity; i++)
             {
@@ -34,6 +34,12 @@
         public int Height
         {
             get { return _height; }
+        }
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
         }
 
         public List<Ball> Balls

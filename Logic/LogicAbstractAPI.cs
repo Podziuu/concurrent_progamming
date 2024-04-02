@@ -8,7 +8,7 @@
         }
 
         public abstract void InitiatePoolTable(int width, int height, int ballsQuantity, int ballRadius);
-        public abstract void CreateBalls();
+        public abstract void CreateTasks();
         public abstract List<Ball> GetBalls();
         public abstract bool IsActive();
         public abstract void Activate();
