@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Label Content="Ile chcesz kul?" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+        <TextBox HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Width="100" Height="16" />
+
+        <Border BorderThickness="2" BorderBrush="black" Width="550" Height="300">
+            <ItemsControl ItemsSource="{Binding Balls}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Background="Azure" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="{Binding Radius}" Height="{Binding Radius}" Fill="DarkOrange" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Top" Value="{Binding Top}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding Left}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Border>
         
+        <Button Content="Start" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,80,20" Background="Green" Padding="8,4"  />
+        <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80,0,0,20" Background="Red" Padding="8,4" />
     </Grid>
 </Window>
