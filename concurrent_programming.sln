@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{C1582A22-1DE0-4838-8514-6A6A4134B140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{C1582A22-1DE0-4838-8514-6A6A4134B140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{D25E04C6-FF1C-4663-AC5A-906FD8A16A17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{D25E04C6-FF1C-4663-AC5A-906FD8A16A17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "DataTest\DataTest.csproj", "{7883002E-DB80-4AEC-A608-591E420F0289}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTest", "DataTest\DataTest.csproj", "{7883002E-DB80-4AEC-A608-591E420F0289}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicTest", "LogicTest\LogicTest.csproj", "{E3AB854E-261B-4E60-B350-9D0EAB497C4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicTest", "LogicTest\LogicTest.csproj", "{E3AB854E-261B-4E60-B350-9D0EAB497C4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A773C4BE-190E-4BD6-801B-8256E22E4994}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{A773C4BE-190E-4BD6-801B-8256E22E4994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{F1729288-909F-4E17-8CA1-9BA78F8BA89C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{2F2121FA-E08C-4896-BD3E-7461445BACC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{A773C4BE-190E-4BD6-801B-8256E22E4994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A773C4BE-190E-4BD6-801B-8256E22E4994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A773C4BE-190E-4BD6-801B-8256E22E4994}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1729288-909F-4E17-8CA1-9BA78F8BA89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1729288-909F-4E17-8CA1-9BA78F8BA89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1729288-909F-4E17-8CA1-9BA78F8BA89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1729288-909F-4E17-8CA1-9BA78F8BA89C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A553E73-F055-4185-A1FD-6D40D7F7CA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2121FA-E08C-4896-BD3E-7461445BACC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2121FA-E08C-4896-BD3E-7461445BACC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2121FA-E08C-4896-BD3E-7461445BACC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2121FA-E08C-4896-BD3E-7461445BACC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
