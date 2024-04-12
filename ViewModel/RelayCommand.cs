@@ -35,5 +35,9 @@ namespace ViewModel
             this._execute();
         }
 
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

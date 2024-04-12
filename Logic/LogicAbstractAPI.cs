@@ -4,14 +4,14 @@
     {
         public static LogicAbstractAPI CreateApi()
         {
-            return new PoolTableManager();
+            return new PoolTable(800, 450);
         }
 
-        public abstract void InitiatePoolTable(int width, int height, int ballsQuantity, int ballRadius);
-        public abstract void CreateTasks();
-        public abstract List<Ball> GetBalls();
-        public abstract bool IsActive();
-        public abstract void Activate();
-        public abstract void Deactivate();
+        //public abstract void InitiatePoolTable(int width, int height, int ballsQuantity, int ballRadius);
+        public abstract void CreateBalls(int ballsQuantity, int radius);
+        public abstract Task StartGame();
+        public abstract int Width { get; }
+        public abstract int Height { get; }
+        public abstract List<Ball> Balls { get; }
     }
 }

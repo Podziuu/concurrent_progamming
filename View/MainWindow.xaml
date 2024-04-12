@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Label Content="Ile chcesz kul?" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-        <TextBox HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Width="100" Height="16" />
+        <TextBox HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Text="{Binding BallsAmmount}"  Width="100" Height="16" />
 
         <Border BorderThickness="2" BorderBrush="black" Width="550" Height="300">
             <ItemsControl ItemsSource="{Binding Balls}">

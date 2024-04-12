@@ -1,6 +1,6 @@
 ﻿namespace Logic
 {
-    public class PoolTable
+    public class PoolTable : LogicAbstractAPI
     {
         private int _width;
         private int _height;
@@ -13,7 +13,7 @@
             _height = height;
         }
 
-        public void CreateBalls(int ballsQuantity, int radius)
+        public override void CreateBalls(int ballsQuantity, int radius)
         {
             Random random = new Random();
             for (int i = 0; i < ballsQuantity; i++)
@@ -25,7 +25,7 @@
             }
         }
 
-        public async Task StartGame()
+        public override async Task StartGame()
         {
             Random rand = new Random();
             foreach (Ball ball in _balls)
@@ -36,23 +36,23 @@
             }
         }
 
-        public int Width
+        public override int Width
         {
             get { return _width; }
         }
 
-        public int Height
+        public override int Height
         {
             get { return _height; }
         }
 
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set { _isActive = value; }
-        }
+        //public bool IsActive
+        //{
+        //    get { return _isActive; }
+        //    set { _isActive = value; }
+        //}
 
-        public List<Ball> Balls
+        public override List<Ball> Balls
         {
             get { return _balls; }
         }
