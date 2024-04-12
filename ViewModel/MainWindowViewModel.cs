@@ -1,39 +1,53 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Model;
 
 namespace ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private Model.ModelAbstractAPI _model;
-        private int _ballsAmmount;
-        public RelayCommand StartButton { get; set; }
+        private String _BallsAmmount = "";
+        public RelayCommand StartButton { get; }
+        public RelayCommand StopButton { get; }
+        public ObservableCollection<ModelBall> Balls => _model.Balls;
 
         public MainWindowViewModel()
         {
             _model = Model.ModelAbstractAPI.CreateAPI();
-            StartButton = new RelayCommand(o => { CreateBalls(BallsAmmount, 10); }, o => CanStartGame() ); 
+            StartButton = new RelayCommand(StartGame); 
             
         }
 
-        public int BallsAmmount 
+        public String BallsAmmount 
         { 
-            get => _ballsAmmount; 
+            get => _BallsAmmount; 
             set { 
-                _ballsAmmount = value;
+                _BallsAmmount = value;
                 OnPropertyChanged();
             } 
         }
 
-        private bool CanStartGame()
+        //private bool CanStartGame()
+        //{
+        //    return BallsAmmount > 0;
+        //}
+
+        public void StartGame()
         {
-            return BallsAmmount > 0;
+            Console.WriteLine("StartGame");
+            int ballsAmount = int.Parse(BallsAmmount);
+            Console.WriteLine(ballsAmount);
+            _model.CreateBalls(ballsAmount, 10);
+            _model.StartGame();
+            OnPropertyChanged("Balls");
         }
 
-        public void CreateBalls(int ballsQuantity, int radius)
-        {
-            _model.CreateBalls(ballsQuantity, radius);
-        }
+        //public void CreateBalls(int ballsQuantity, int radius)
+        //{
+        //    _model.CreateBalls(ballsQuantity, radius);
+        //}
 
 
         public event PropertyChangedEventHandler PropertyChanged;
