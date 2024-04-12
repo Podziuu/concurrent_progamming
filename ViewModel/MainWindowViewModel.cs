@@ -11,13 +11,13 @@ namespace ViewModel
         private String _BallsAmmount = "";
         public RelayCommand StartButton { get; }
         public RelayCommand StopButton { get; }
-        public ObservableCollection<ModelBall> Balls => _model.Balls;
+        public ObservableCollection<ModelBall> Balls => _model.GetBalls();
 
         public MainWindowViewModel()
         {
             _model = Model.ModelAbstractAPI.CreateAPI();
-            StartButton = new RelayCommand(StartGame); 
-            
+            StartButton = new RelayCommand(StartGame, CanStartGame);
+            StopButton = new RelayCommand(StopGame, CanStopGame);
         }
 
         public String BallsAmmount 
@@ -29,26 +29,31 @@ namespace ViewModel
             } 
         }
 
-        //private bool CanStartGame()
-        //{
-        //    return BallsAmmount > 0;
-        //}
+        private bool CanStartGame()
+        {
+            return true;
+            //return Balls.Count == 0;
+        }
 
         public void StartGame()
         {
-            Console.WriteLine("StartGame");
+            Console.WriteLine(Balls.Count);
             int ballsAmount = int.Parse(BallsAmmount);
-            Console.WriteLine(ballsAmount);
             _model.CreateBalls(ballsAmount, 10);
             _model.StartGame();
             OnPropertyChanged("Balls");
         }
 
-        //public void CreateBalls(int ballsQuantity, int radius)
-        //{
-        //    _model.CreateBalls(ballsQuantity, radius);
-        //}
+        private bool CanStopGame()
+        {
+            return Balls.Count > 0;
+        }
 
+        public void StopGame()
+        {
+            _model.StopGame();
+            OnPropertyChanged("Balls");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

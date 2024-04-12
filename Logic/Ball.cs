@@ -1,10 +1,21 @@
-﻿namespace Logic
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+
+namespace Logic
 {
-    public class Ball
+    public class Ball : INotifyPropertyChanged
     {
         private float _x;
         private float _y;
         private readonly int _radius;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         
         public Ball(float x, float y, int radius)
         {
@@ -16,13 +27,13 @@
         public float X
         {
             get => _x;
-            set => _x = value;
+            set { _x = value; OnPropertyChanged(); }
         }
 
         public float Y
         {
             get => _y;
-            set => _y = value;
+            set { _y = value; OnPropertyChanged();}
         }
 
         public int Radius
@@ -47,7 +58,6 @@
                 X += (float)xStep;
                 Y += (float)yStep;
 
-                await Task.Delay(100);
             }
         }
 

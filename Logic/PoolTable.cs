@@ -32,8 +32,15 @@
             {
                 float targetX = rand.Next(ball.Radius, _width - ball.Radius);
                 float targetY = rand.Next(ball.Radius, _height - ball.Radius);
-                await ball.Move(targetX, targetY, 10);
+                //await ball.Move(targetX, targetY, 10);
+                Thread thread = new Thread(() => ball.Move(targetX, targetY, 10));
+                thread.Start();
             }
+        }
+
+        public override void StopGame()
+        {
+            _balls.Clear();
         }
 
         public override int Width
@@ -55,6 +62,11 @@
         public override List<Ball> Balls
         {
             get { return _balls; }
+        }
+
+        public override List<Ball> GetAllBalls()
+        {
+            return _balls;
         }
     }
 }

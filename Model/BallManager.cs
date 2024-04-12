@@ -18,12 +18,27 @@ namespace Model
             poolTable.CreateBalls(ballsQuantity, radius);
         }
 
+        public override ObservableCollection<ModelBall> GetBalls()
+        {
+            balls.Clear();
+            foreach (var ball in poolTable.GetAllBalls())
+            {
+                balls.Add(new ModelBall(ball.X, ball.Y, ball.Radius));
+            }
+            return balls;
+        }
+
         public override ObservableCollection<ModelBall> Balls => balls;
         
 
         public override void StartGame()
         {
             poolTable.StartGame();
+        }
+
+        public override void StopGame()
+        {
+            poolTable.StopGame();
         }
     }
 }
