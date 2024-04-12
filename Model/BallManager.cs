@@ -21,9 +21,11 @@ namespace Model
         public override ObservableCollection<ModelBall> GetBalls()
         {
             balls.Clear();
-            foreach (var ball in poolTable.GetAllBalls())
+            foreach (Ball ball in poolTable.GetAllBalls())
             {
-                balls.Add(new ModelBall(ball.X, ball.Y, ball.Radius));
+                ModelBall b = new ModelBall(ball.X, ball.Y, ball.Radius);
+                balls.Add(b);
+                ball.PropertyChanged += b.UpdateBall!;
             }
             return balls;
         }

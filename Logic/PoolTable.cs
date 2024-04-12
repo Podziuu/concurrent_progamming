@@ -18,8 +18,8 @@
             Random random = new Random();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                int x = random.Next(radius, _width - radius);
-                int y = random.Next(radius, _height - radius);
+                float x = random.Next(radius, _width - radius);
+                float y = random.Next(radius, _height - radius);
                 Ball ball = new Ball(x, y, radius);
                 _balls.Add(ball);
             }
@@ -28,14 +28,18 @@
         public override async Task StartGame()
         {
             Random rand = new Random();
+            List<Task> moveTasks = new List<Task>();
+
             foreach (Ball ball in _balls)
             {
                 float targetX = rand.Next(ball.Radius, _width - ball.Radius);
                 float targetY = rand.Next(ball.Radius, _height - ball.Radius);
-                //await ball.Move(targetX, targetY, 10);
-                Thread thread = new Thread(() => ball.Move(targetX, targetY, 10));
-                thread.Start();
+
+                Task moveTask = ball.Move(targetX, targetY, 10);
+                moveTasks.Add(moveTask);
             }
+
+            await Task.WhenAll(moveTasks);
         }
 
         public override void StopGame()

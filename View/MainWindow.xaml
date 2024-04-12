@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="800" Height="450">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -14,26 +14,24 @@
         <Label Content="Ile chcesz kul?" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
         <TextBox HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Text="{Binding BallsAmmount}"  Width="100" Height="16" />
 
-        <Border BorderThickness="2" BorderBrush="black" Width="550" Height="300">
-            <ItemsControl ItemsSource="{Binding Balls}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas Background="Azure" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Ellipse Width="{Binding Radius}" Height="{Binding Radius}" Fill="DarkOrange" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Canvas.Top" Value="{Binding X}"/>
-                        <Setter Property="Canvas.Left" Value="{Binding Y}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
-        </Border>
+        <ItemsControl ItemsSource="{Binding Balls}" Width="550" Height="300">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Green" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="{Binding Radius}" Height="{Binding Radius}" Fill="DarkOrange" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
 
         <Button Content="Start" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,80,20" Background="Green" Padding="8,4" Command="{Binding StartButton}"  />
         <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80,0,0,20" Background="Red" Padding="8,4" Command="{Binding StopGame}" />

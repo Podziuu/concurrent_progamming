@@ -55,9 +55,11 @@ namespace Logic
 
             for (int i = 0; i < steps; i++)
             {
+                await Task.Delay(75);
                 X += (float)xStep;
                 Y += (float)yStep;
-
+                OnPropertyChanged(nameof(X));
+                OnPropertyChanged(nameof(Y));
             }
         }
 

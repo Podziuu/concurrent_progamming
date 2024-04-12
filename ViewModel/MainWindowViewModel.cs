@@ -31,8 +31,8 @@ namespace ViewModel
 
         private bool CanStartGame()
         {
-            return true;
-            //return Balls.Count == 0;
+            //return true;
+            return Balls.Count == 0;
         }
 
         public void StartGame()

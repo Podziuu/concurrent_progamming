@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using Logic;
+
 namespace Model
 {
     public class ModelBall : INotifyPropertyChanged
@@ -45,6 +47,18 @@ namespace Model
             get => _radius;
         }
 
+        public void UpdateBall(Object s, PropertyChangedEventArgs e)
+        {
+           Ball ball = (Ball)s;
+            if(e.PropertyName == "X")
+            {
+                X = ball.X;
+            }
+            else if (e.PropertyName == "Y")
+            {
+                Y = ball.Y;
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
