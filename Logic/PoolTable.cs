@@ -23,7 +23,17 @@
                 Ball ball = new Ball(x, y, radius);
                 _balls.Add(ball);
             }
-           
+        }
+
+        public async Task StartGame()
+        {
+            Random rand = new Random();
+            foreach (Ball ball in _balls)
+            {
+                float targetX = rand.Next(ball.Radius, _width - ball.Radius);
+                float targetY = rand.Next(ball.Radius, _height - ball.Radius);
+                await ball.Move(targetX, targetY, 10);
+            }
         }
 
         public int Width
