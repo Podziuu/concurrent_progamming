@@ -34,6 +34,6 @@
         </ItemsControl>
 
         <Button Content="Start" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,80,20" Background="Green" Padding="8,4" Command="{Binding StartButton}"  />
-        <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80,0,0,20" Background="Red" Padding="8,4" Command="{Binding StopGame}" />
+        <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80,0,0,20" Background="Red" Padding="8,4" Command="{Binding StopButton}" />
     </Grid>
 </Window>

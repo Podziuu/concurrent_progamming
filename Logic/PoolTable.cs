@@ -30,18 +30,18 @@
             Random rand = new Random();
             List<Task> moveTasks = new List<Task>();
 
-            foreach (Ball ball in _balls)
-            {
-                float targetX = rand.Next(ball.Radius, _width - ball.Radius);
-                float targetY = rand.Next(ball.Radius, _height - ball.Radius);
+                foreach (Ball ball in _balls)
+                {
+                    float targetX = rand.Next(ball.Radius, _width - ball.Radius);
+                    float targetY = rand.Next(ball.Radius, _height - ball.Radius);
 
-                Task moveTask = ball.Move(targetX, targetY, 10);
-                moveTasks.Add(moveTask);
+                    Task moveTask = ball.Move(targetX, targetY, 10);
+                    moveTasks.Add(moveTask);
+                }
+
+                await Task.WhenAll(moveTasks);
             }
-
-            await Task.WhenAll(moveTasks);
-        }
-
+        
         public override void StopGame()
         {
             _balls.Clear();
