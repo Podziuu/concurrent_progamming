@@ -9,6 +9,7 @@ namespace Logic
         private float _x;
         private float _y;
         private readonly int _radius;
+        private bool _isMoving;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -41,11 +42,18 @@ namespace Logic
             get => _radius;
         }
 
+        public bool IsMoving
+        {
+            get => _isMoving;
+            set { _isMoving = value; }
+        }
+
         public async Task Move(int width, int height)
         {
             Random rand = new Random();
             double velocity = 3;
-            while (true)
+            _isMoving = true;
+            while (_isMoving)
             {
                 float targetX = rand.Next(_radius, width - _radius);
                 float targetY = rand.Next(_radius, height - _radius);

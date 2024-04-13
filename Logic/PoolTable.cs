@@ -35,6 +35,11 @@
 
         public override void StopGame()
         {
+            foreach (Ball ball in _balls)
+            {
+                ball.IsMoving = false;
+            }
+
             _balls.Clear();
         }
 
