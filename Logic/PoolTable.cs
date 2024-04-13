@@ -53,10 +53,6 @@
             get { return _height; }
         }
 
-        //public override List<Ball> Balls
-        //{
-        //    get { return _balls; }
-        //}
 
         public override List<Ball> GetAllBalls()
         {

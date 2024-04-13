@@ -12,7 +12,6 @@
         public abstract void StopGame();
         public abstract int Width { get; }
         public abstract int Height { get; }
-        //public abstract List<Ball> Balls { get; }
         public abstract List<Ball> GetAllBalls();
     }
 }
