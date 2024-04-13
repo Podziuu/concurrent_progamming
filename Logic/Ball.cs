@@ -41,27 +41,33 @@ namespace Logic
             get => _radius;
         }
 
-        public async Task Move(float targetX, float targetY, double velocity)
+        public async Task Move(int width, int height)
         {
-            float xDiff = targetX - _x;
-            float yDiff = targetY - _y;
-
-            double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
-
-            int steps = (int)Math.Ceiling(distance / velocity);
-
-            double xStep = xDiff / steps;
-            double yStep = yDiff / steps;
-
-            for (int i = 0; i < steps; i++)
+            Random rand = new Random();
+            double velocity = 3;
+            while (true)
             {
-                await Task.Delay(75);
-                X += (float)xStep;
-                Y += (float)yStep;
-                OnPropertyChanged(nameof(X));
-                OnPropertyChanged(nameof(Y));
+                float targetX = rand.Next(_radius, width - _radius);
+                float targetY = rand.Next(_radius, height - _radius);
+                float xDiff = targetX - _x;
+                float yDiff = targetY - _y;
+
+                double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
+
+                int steps = (int)Math.Ceiling(distance / velocity);
+
+                double xStep = xDiff / steps;
+                double yStep = yDiff / steps;
+
+                for (int i = 0; i < steps; i++)
+                {
+                    await Task.Delay(20);
+                    X += (float)xStep;
+                    Y += (float)yStep;
+                    OnPropertyChanged(nameof(X));
+                    OnPropertyChanged(nameof(Y));
+                }
             }
         }
-
-        }
+    }
 }

@@ -37,11 +37,12 @@ namespace ViewModel
 
         public void StartGame()
         {
-            Console.WriteLine(Balls.Count);
             int ballsAmount = int.Parse(BallsAmmount);
-            _model.CreateBalls(ballsAmount, 10);
+            _model.CreateBalls(ballsAmount, 15);
             _model.StartGame();
             OnPropertyChanged("Balls");
+            StopButton.RaiseCanExecuteChanged();
+            StartButton.RaiseCanExecuteChanged();
         }
 
         private bool CanStopGame()
@@ -53,6 +54,8 @@ namespace ViewModel
         {
             _model.StopGame();
             OnPropertyChanged("Balls");
+            StopButton.RaiseCanExecuteChanged();
+            StartButton.RaiseCanExecuteChanged();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
