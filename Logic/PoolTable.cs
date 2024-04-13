@@ -4,9 +4,7 @@
     {
         private int _width;
         private int _height;
-        private bool _isActive = false;
         private List<Ball> _balls = new List<Ball>();
-        private Timer? _timer;
 
         public PoolTable(int width, int height)
         {
@@ -38,47 +36,6 @@
             }
         }
 
-        //public override void StartGame()
-        //{
-        //    _timer = new Timer(MoveBalls, null, 0, 8);
-        //}
-
-        //public void MoveBalls(Object? stateInfo)
-        //{
-        //    foreach (Ball ball in _balls) {
-        //        if(ball.X + ball.Radius >= _width || ball.X - ball.Radius <= 0)
-        //        {
-        //            ball.InvertXSpeed();
-        //        }
-
-        //        if (ball.Y + ball.Radius >= _height || ball.Y - ball.Radius <= 0)
-        //        {
-        //            ball.InvertYSpeed();
-        //        }
-
-        //        ball.Move();
-        //    }
-        //}
-
-        //    public override async void StartGame()
-        //    {
-        //        Random rand = new Random();
-        //        while (true)
-        //        {
-        //            List<Task> moveTasks = new List<Task>();
-
-        //            foreach (Ball ball in _balls)
-        //            {
-        //                float targetX = rand.Next(ball.Radius, _width - ball.Radius);
-        //                float targetY = rand.Next(ball.Radius, _height - ball.Radius);
-        //                //moveTasks.Add(Task.Run(async () => await ball.Move(targetX, targetY, 10)));
-        //                Task moveTask = ball.Move(targetX, targetY, 10);
-        //            }
-        //            //await Task.WhenAll(moveTasks);
-        //            await Task.WhenAll(_balls.Select(ball => ball.MoveTask));
-        //        }
-        //}
-
         public override void StopGame()
         {
             _balls.Clear();
@@ -93,12 +50,6 @@
         {
             get { return _height; }
         }
-
-        //public bool IsActive
-        //{
-        //    get { return _isActive; }
-        //    set { _isActive = value; }
-        //}
 
         public override List<Ball> Balls
         {
