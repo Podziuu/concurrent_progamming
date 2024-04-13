@@ -26,9 +26,6 @@
 
         public override void StartGame()
         {
-            Random rand = new Random();
-            List<Task> moveTasks = new List<Task>();
-
             foreach (Ball ball in _balls)
             {
                 Thread thread = new Thread(() => { ball.Move(_width, _height); });
@@ -51,10 +48,10 @@
             get { return _height; }
         }
 
-        public override List<Ball> Balls
-        {
-            get { return _balls; }
-        }
+        //public override List<Ball> Balls
+        //{
+        //    get { return _balls; }
+        //}
 
         public override List<Ball> GetAllBalls()
         {

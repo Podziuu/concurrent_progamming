@@ -26,12 +26,13 @@ namespace ViewModel
             set { 
                 _BallsAmmount = value;
                 OnPropertyChanged();
+                StartButton.RaiseCanExecuteChanged();
             } 
         }
 
         private bool CanStartGame()
         {
-            return Balls.Count == 0;
+            return Balls.Count == 0 && BallsAmmount != "";
         }
 
         public void StartGame()
