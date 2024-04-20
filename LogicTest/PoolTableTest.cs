@@ -1,11 +1,24 @@
 using Logic;
+using Data;
 namespace LogicTest
 {
+    internal class FakeDataApi : DataAbstractAPI
+    {
+
+    }
+
     [TestClass]
     public class PoolTableTest
     {
+        private DataAbstractAPI data;
+        private LogicAbstractAPI poolTable;
 
-        LogicAbstractAPI poolTable = LogicAbstractAPI.CreateApi();
+        [TestInitialize]
+        public void Initialize()
+        {
+            data = FakeDataApi.CreateApi();
+            poolTable = LogicAbstractAPI.CreateApi(data);
+        }
 
 
         [TestMethod]

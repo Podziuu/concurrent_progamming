@@ -2,7 +2,7 @@
 {
     public abstract class DataAbstractAPI
     {
-        public static DataAbstractAPI CreateAPI()
+        public static DataAbstractAPI CreateApi()
         {
             return new DataAPI();
         }

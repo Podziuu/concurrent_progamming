@@ -1,15 +1,19 @@
-﻿namespace Logic
+﻿using Data;
+
+namespace Logic
 {
-    public class PoolTable : LogicAbstractAPI
+    internal class PoolTable : LogicAbstractAPI
     {
         private int _width;
         private int _height;
         private List<Ball> _balls = new List<Ball>();
+        private DataAbstractAPI _data;
 
-        public PoolTable(int width, int height)
+        public PoolTable(int width, int height, DataAbstractAPI data)
         {
             _width = width;
             _height = height;
+            _data = data;
         }
 
         public override void CreateBalls(int ballsQuantity, int radius)
