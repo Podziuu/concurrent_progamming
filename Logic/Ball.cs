@@ -4,14 +4,14 @@ using System.Runtime.CompilerServices;
 
 namespace Logic
 {
-    public class Ball : INotifyPropertyChanged
+    internal class Ball : IBall, INotifyPropertyChanged
     {
         private float _x;
         private float _y;
         private readonly int _radius;
         private bool _isMoving;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public override event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -25,30 +25,30 @@ namespace Logic
             _radius = radius;
         }
 
-        public float X
+        public override float X
         {
             get => _x;
             set { _x = value; OnPropertyChanged(); }
         }
 
-        public float Y
+        public override float Y
         {
             get => _y;
             set { _y = value; OnPropertyChanged();}
         }
 
-        public int Radius
+        public override int Radius
         {
             get => _radius;
         }
 
-        public bool IsMoving
+        public override bool IsMoving
         {
             get => _isMoving;
             set { _isMoving = value; }
         }
 
-        public async Task Move(int width, int height)
+        public override async Task Move(int width, int height)
         {
             Random rand = new Random();
             double velocity = 3;

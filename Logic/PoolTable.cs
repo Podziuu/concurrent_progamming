@@ -6,7 +6,7 @@ namespace Logic
     {
         private int _width;
         private int _height;
-        private List<Ball> _balls = new List<Ball>();
+        private List<IBall> _balls = new List<IBall>();
         private DataAbstractAPI _data;
 
         public PoolTable(int width, int height, DataAbstractAPI data)
@@ -23,7 +23,7 @@ namespace Logic
             {
                 float x = random.Next(radius, _width - radius);
                 float y = random.Next(radius, _height - radius);
-                Ball ball = new Ball(x, y, radius);
+                IBall ball = IBall.CreateBall(x, y, radius);
                 _balls.Add(ball);
             }
         }
@@ -58,7 +58,7 @@ namespace Logic
         }
 
 
-        public override List<Ball> GetAllBalls()
+        public override List<IBall> GetAllBalls()
         {
             return _balls;
         }

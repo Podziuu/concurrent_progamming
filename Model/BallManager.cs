@@ -11,17 +11,17 @@ namespace Model
     internal class BallManager : ModelAbstractAPI
     {
         private LogicAbstractAPI poolTable = LogicAbstractAPI.CreateApi();
-        private ObservableCollection<ModelBall> balls = new ObservableCollection<ModelBall>();
+        private ObservableCollection<IModelBall> balls = new ObservableCollection<IModelBall>();
 
         public override void CreateBalls(int ballsQuantity, int radius)
         {
             poolTable.CreateBalls(ballsQuantity, radius);
         }
 
-        public override ObservableCollection<ModelBall> GetBalls()
+        public override ObservableCollection<IModelBall> GetBalls()
         {
             balls.Clear();
-            foreach (Ball ball in poolTable.GetAllBalls())
+            foreach (IBall ball in poolTable.GetAllBalls())
             {
                 ModelBall b = new ModelBall(ball.X, ball.Y, ball.Radius);
                 balls.Add(b);
@@ -30,7 +30,7 @@ namespace Model
             return balls;
         }
 
-        public override ObservableCollection<ModelBall> Balls => balls;
+        public override ObservableCollection<IModelBall> Balls => balls;
         
 
         public override void StartGame()
