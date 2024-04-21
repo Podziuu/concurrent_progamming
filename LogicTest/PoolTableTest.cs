@@ -31,15 +31,13 @@ namespace LogicTest
         [TestMethod]
         public void TestWidth()
         {
-            poolTable.CreateBalls(5, 10);
-            Assert.AreEqual(5, poolTable.GetAllBalls().Count);
+            Assert.AreEqual(550, poolTable.Width);
         }
 
         [TestMethod]
         public void TestHeight()
         {
-            poolTable.CreateBalls(5, 10);
-            Assert.AreEqual(5, poolTable.GetAllBalls().Count);
+            Assert.AreEqual(300, poolTable.Height);
         }
 
         [TestMethod]
