@@ -6,14 +6,13 @@ namespace Logic
     {
         public static LogicAbstractAPI CreateApi(DataAbstractAPI data = null)
         {
-            return new PoolTable(550, 300, data ?? DataAbstractAPI.CreateApi());
+            return new PoolTable(data ?? DataAbstractAPI.CreateApi());
         }
 
-        public abstract void CreateBalls(int ballsQuantity, int radius);
+        
         public abstract void StartGame();
         public abstract void StopGame();
-        public abstract int Width { get; }
-        public abstract int Height { get; }
+        
         public abstract List<IBall> GetAllBalls();
     }
 }
