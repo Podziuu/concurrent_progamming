@@ -18,6 +18,5 @@ namespace Data
         public abstract int Radius { get; }
         public abstract bool IsMoving { get; set; }
         public abstract Task Move();
-        public abstract event PropertyChangedEventHandler? PropertyChanged;
     }
 }

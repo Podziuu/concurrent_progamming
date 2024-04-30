@@ -8,11 +8,8 @@ namespace Logic
         {
             return new PoolTable(data ?? DataAbstractAPI.CreateApi());
         }
-
-        
         public abstract void StartGame();
-        public abstract void StopGame();
-        
-        public abstract List<IBall> GetAllBalls();
+        public abstract void StopGame();   
+        //public abstract List<IBall> GetAllBalls();
     }
 }
