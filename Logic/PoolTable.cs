@@ -36,8 +36,13 @@ namespace Logic
 
         public override void CreateBalls(int ballsQuantity, int radius)
         {
-
             _data.CreateBalls(ballsQuantity, radius);
+            //List<IBall> createdBalls = _data.GetAllBalls();
+
+            //foreach (var observer in _observers)
+            //{
+            //    observer.OnNext(createdBalls);
+            //}
         }
 
         public override List<IBall> GetAllBalls()

@@ -22,10 +22,10 @@ namespace Data
             _y = y;
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
-            foreach (var observer in _observers)
-            {
-                observer.OnNext(this);
-            }
+            //foreach (var observer in _observers)
+            //{
+            //    observer.OnNext(this);
+            //}
         }
 
         public override float X

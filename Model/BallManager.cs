@@ -28,11 +28,11 @@ namespace Model
             _balls.Clear(); // Wyczyść istniejące kule
             ballPositions.Clear(); // Wyczyść poprzednie pozycje
             poolTable.CreateBalls(ballsQuantity, radius);
-            //List<IBall> balls = poolTable.GetAllBalls();
+            List<IBall> balls = poolTable.GetAllBalls();
             for (int i = 0; i < ballsQuantity; i++)
             {
                 // Dodaj kulki do _balls na podstawie informacji o pozycji
-                _balls.Add(new ModelBall(ballPositions[i].X, ballPositions[i].Y, radius));
+                _balls.Add(new ModelBall(balls[i].X, balls[i].Y, radius));
             }
         }
 
@@ -65,6 +65,14 @@ namespace Model
                 ballPositions.Add((ball.X, ball.Y));
             }
         }
+
+        //public virtual void OnNext(List<IBall> value)
+        //{
+        //    foreach (IBall ball in value)
+        //    {
+        //        _balls.Add(new ModelBall(ball.X, ball.Y, ball.Radius));
+        //    }
+        //}
 
 
         //public override ObservableCollection<ModelBall> Balls => _balls;
