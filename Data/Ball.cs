@@ -22,6 +22,10 @@ namespace Data
             _y = y;
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(this);
+            }
         }
 
         public override float X
@@ -49,10 +53,15 @@ namespace Data
 
         public override Task Move()
         {
+            // send information to logic
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(this);
+            }
             throw new NotImplementedException();
         }
 
-        public IDisposable Subscribe(IObserver<IBall> observer)
+        public override IDisposable Subscribe(IObserver<IBall> observer)
         {
             if (!_observers.Contains(observer))
             {
@@ -89,24 +98,23 @@ namespace Data
         //            OnPropertyChanged(nameof(Y));
         //        }
         //    }
-    //}
-    }
-
-    public class Unsubscriber : IDisposable
-    {
-        private List<IObserver<IBall>> _observers;
-        private IObserver<IBall> _observer;
-
-        public Unsubscriber(List<IObserver<IBall>> observers, IObserver<IBall> observer)
+        //}
+        private class Unsubscriber : IDisposable
         {
-            _observers = observers;
-            _observer = observer;
-        }
-        public void Dispose()
-        {
-               if (_observers.Contains(_observer) && !(_observer == null))
+            private List<IObserver<IBall>> _observers;
+            private IObserver<IBall> _observer;
+
+            public Unsubscriber(List<IObserver<IBall>> observers, IObserver<IBall> observer)
             {
-                _observers.Remove(_observer);
+                _observers = observers;
+                _observer = observer;
+            }
+            public void Dispose()
+            {
+                if (_observers.Contains(_observer) && !(_observer == null))
+                {
+                    _observers.Remove(_observer);
+                }
             }
         }
     }

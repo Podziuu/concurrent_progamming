@@ -13,7 +13,7 @@ namespace Model
         public abstract void StopGame();
         public abstract void CreateBalls(int ballsQuantity, int radius);
         public abstract ObservableCollection<IModelBall> Balls { get; }
-        public abstract ObservableCollection<IModelBall> GetBalls();
+        //public abstract ObservableCollection<IModelBall> GetBalls();
 
     }
 }

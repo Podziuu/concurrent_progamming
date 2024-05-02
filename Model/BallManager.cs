@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using Data;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,29 +9,79 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class BallManager : ModelAbstractAPI
+    internal class BallManager : ModelAbstractAPI, IObserver<LogicAbstractAPI>
     {
-        private LogicAbstractAPI poolTable = LogicAbstractAPI.CreateApi();
-        private ObservableCollection<IModelBall> balls = new ObservableCollection<IModelBall>();
+        private LogicAbstractAPI poolTable;
+        private ObservableCollection<IModelBall> _balls = new ObservableCollection<IModelBall>();
+        private IDisposable unsubscriber;
+        private List<(float X, float Y)> ballPositions = new List<(float X, float Y)>();
+
+
+        public BallManager()
+        {
+            poolTable = LogicAbstractAPI.CreateApi();
+            this.Subscribe(poolTable);
+        }
 
         public override void CreateBalls(int ballsQuantity, int radius)
         {
+            _balls.Clear(); // Wyczyść istniejące kule
+            ballPositions.Clear(); // Wyczyść poprzednie pozycje
             poolTable.CreateBalls(ballsQuantity, radius);
-        }
-
-        public override ObservableCollection<IModelBall> GetBalls()
-        {
-            balls.Clear();
-            foreach (IBall ball in poolTable.GetAllBalls())
+            //List<IBall> balls = poolTable.GetAllBalls();
+            for (int i = 0; i < ballsQuantity; i++)
             {
-                ModelBall b = new ModelBall(ball.X, ball.Y, ball.Radius);
-                balls.Add(b);
-                ball.PropertyChanged += b.UpdateBall!;
+                // Dodaj kulki do _balls na podstawie informacji o pozycji
+                _balls.Add(new ModelBall(ballPositions[i].X, ballPositions[i].Y, radius));
             }
-            return balls;
         }
 
-        public override ObservableCollection<IModelBall> Balls => balls;
+        public virtual void Subscribe(IObservable<LogicAbstractAPI> provider)
+        {
+            unsubscriber = provider.Subscribe(this);
+        }
+
+        public virtual void Unsubcribe()
+        {
+            unsubscriber.Dispose();
+        }
+
+        public virtual void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OnNext(LogicAbstractAPI value)
+        {
+            // Odczytaj pozycje kul i zaktualizuj listę
+            ballPositions.Clear();
+            foreach (var ball in poolTable.GetAllBalls())
+            {
+                ballPositions.Add((ball.X, ball.Y));
+            }
+        }
+
+
+        //public override ObservableCollection<ModelBall> Balls => _balls;
+
+        //public override ObservableCollection<IModelBall> GetBalls()
+        //{
+        //    balls.Clear();
+        //    foreach (var ball in poolTable.GetAllBalls())
+        //    {
+        //        ModelBall b = new ModelBall(ball.X, ball.Y, ball.Radius);
+        //        balls.Add(b);
+        //        ball.PropertyChanged += b.UpdateBall!;
+        //    }
+        //    return balls;
+        //}
+
+        public override ObservableCollection<IModelBall> Balls => _balls;
         
 
         public override void StartGame()

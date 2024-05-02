@@ -11,7 +11,7 @@ namespace ViewModel
         private String _BallsAmmount = "";
         public RelayCommand StartButton { get; }
         public RelayCommand StopButton { get; }
-        public ObservableCollection<IModelBall> Balls => _model.GetBalls();
+        public ObservableCollection<IModelBall> Balls => _model.Balls;
 
         public MainWindowViewModel()
         {
