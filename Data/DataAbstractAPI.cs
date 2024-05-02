@@ -10,7 +10,7 @@ namespace Data
         }
         public abstract int Width { get; }
         public abstract int Height { get; }
-        public abstract void CreateBalls(int ballsQuantity, int radius);
+        public abstract List<IBall> CreateBalls(int ballsQuantity, int radius);
         public abstract List<IBall> GetAllBalls();
         public abstract void RemoveBalls();
     }

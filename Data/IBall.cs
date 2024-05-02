@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public abstract class IBall
+    public abstract class IBall : IObservable<IBall>
     {
         public static IBall CreateBall(float x, float y, int radius)
         {

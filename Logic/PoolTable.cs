@@ -19,7 +19,7 @@ namespace Logic
         {
             foreach (IBall ball in _data.GetAllBalls())
             {
-                this.Subscribe(ball);
+                //this.Subscribe(ball);
                 Thread thread = new Thread(() => { ball.Move(); });
                 thread.Start();
             }
@@ -37,7 +37,11 @@ namespace Logic
 
         public override void CreateBalls(int ballsQuantity, int radius)
         {
-            _data.CreateBalls(ballsQuantity, radius);
+            List<IBall> balls =_data.CreateBalls(ballsQuantity, radius);
+            foreach (IBall ball in balls)
+            {
+                this.Subscribe(ball);
+            }
             //List<IBall> createdBalls = _data.GetAllBalls();
 
             //foreach (var observer in _observers)
@@ -52,31 +56,30 @@ namespace Logic
         }
 
 
-        public virtual void Subscribe(IObservable<IBall> provider)
+        public void Subscribe(IObservable<IBall> provider)
         {
             unsubscriber = provider.Subscribe(this);
         }
 
-        public virtual void Unsubscribe()
+        public void Unsubscribe()
         {
             unsubscriber.Dispose();
         }
 
-        public virtual void OnCompleted()
+        public void OnCompleted()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void OnError(Exception error)
+        public void OnError(Exception error)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void OnNext(IBall value)
+        public void OnNext(IBall value)
         {
             lock (ballLock)
             {
-
                 foreach (IBall ball in _data.GetAllBalls())
                 {
                     WallCollision(ball);

@@ -22,7 +22,7 @@ namespace Data
 
         public override int Height => _height;
 
-        public override void CreateBalls(int ballsQuantity, int radius)
+        public override List<IBall> CreateBalls(int ballsQuantity, int radius)
         {
             Random rand = new Random();
             for (int i = 0; i < ballsQuantity; i++)
@@ -30,6 +30,7 @@ namespace Data
                 _balls.Add(IBall.CreateBall(rand.Next(0, _width), rand.Next(0, _height), radius));
 
             }
+            return _balls;
         }
 
         public override List<IBall> GetAllBalls()

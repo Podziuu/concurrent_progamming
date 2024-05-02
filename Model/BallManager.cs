@@ -15,7 +15,7 @@ namespace Model
         private ObservableCollection<IModelBall> _balls = new ObservableCollection<IModelBall>();
         private IDisposable unsubscriber;
         private List<(float X, float Y)> ballPositions = new List<(float X, float Y)>();
-
+        private readonly object _lock = new object();
 
         public BallManager()
         {
@@ -59,10 +59,22 @@ namespace Model
         public virtual void OnNext(LogicAbstractAPI value)
         {
             // Odczytaj pozycje kul i zaktualizuj listę
-            ballPositions.Clear();
-            foreach (var ball in poolTable.GetAllBalls())
+            //ballPositions.Clear();
+            //foreach (var ball in poolTable.GetAllBalls())
+            //{
+            //    ballPositions.Add((ball.X, ball.Y));
+            //}
+            lock (_lock)
             {
-                ballPositions.Add((ball.X, ball.Y));
+                List<IBall> balls = poolTable.GetAllBalls();
+                if(balls.Count == _balls.Count)
+                {
+                    for (int i = 0; i < balls.Count; i++)
+                    {
+                        _balls[i].X = balls[i].X;
+                        _balls[i].Y = balls[i].Y;
+                    }
+                }
             }
         }
 

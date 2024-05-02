@@ -24,6 +24,8 @@ namespace Data
         {
             _x = x;
             _y = y;
+            _xVelocity = 3;
+            _yVelocity = 3;
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
             //foreach (var observer in _observers)
@@ -102,7 +104,6 @@ namespace Data
             _isMoving = true;
             while (_isMoving)
             {
-
                 _x += _xVelocity;
                 _y += _yVelocity;
                 await Task.Delay(20);
