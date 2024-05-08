@@ -25,13 +25,12 @@ namespace Model
 
         public override void CreateBalls(int ballsQuantity, int radius)
         {
-            _balls.Clear(); // Wyczyść istniejące kule
-            ballPositions.Clear(); // Wyczyść poprzednie pozycje
+            _balls.Clear();
+            ballPositions.Clear();
             poolTable.CreateBalls(ballsQuantity, radius);
             List<IBall> balls = poolTable.GetAllBalls();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                // Dodaj kulki do _balls na podstawie informacji o pozycji
                 _balls.Add(new ModelBall(balls[i].Position.X, balls[i].Position.Y, radius));
             }
         }
@@ -58,12 +57,6 @@ namespace Model
 
         public virtual void OnNext(LogicAbstractAPI value)
         {
-            // Odczytaj pozycje kul i zaktualizuj listę
-            //ballPositions.Clear();
-            //foreach (var ball in poolTable.GetAllBalls())
-            //{
-            //    ballPositions.Add((ball.X, ball.Y));
-            //}
             lock (_lock)
             {
                 List<IBall> balls = poolTable.GetAllBalls();
@@ -77,29 +70,6 @@ namespace Model
                 }
             }
         }
-
-        //public virtual void OnNext(List<IBall> value)
-        //{
-        //    foreach (IBall ball in value)
-        //    {
-        //        _balls.Add(new ModelBall(ball.X, ball.Y, ball.Radius));
-        //    }
-        //}
-
-
-        //public override ObservableCollection<ModelBall> Balls => _balls;
-
-        //public override ObservableCollection<IModelBall> GetBalls()
-        //{
-        //    balls.Clear();
-        //    foreach (var ball in poolTable.GetAllBalls())
-        //    {
-        //        ModelBall b = new ModelBall(ball.X, ball.Y, ball.Radius);
-        //        balls.Add(b);
-        //        ball.PropertyChanged += b.UpdateBall!;
-        //    }
-        //    return balls;
-        //}
 
         public override ObservableCollection<IModelBall> Balls => _balls;
         
