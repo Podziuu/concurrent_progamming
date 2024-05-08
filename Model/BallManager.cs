@@ -32,7 +32,7 @@ namespace Model
             for (int i = 0; i < ballsQuantity; i++)
             {
                 // Dodaj kulki do _balls na podstawie informacji o pozycji
-                _balls.Add(new ModelBall(balls[i].X, balls[i].Y, radius));
+                _balls.Add(new ModelBall(balls[i].Position.X, balls[i].Position.Y, radius));
             }
         }
 
@@ -71,8 +71,8 @@ namespace Model
                 {
                     for (int i = 0; i < balls.Count; i++)
                     {
-                        _balls[i].X = balls[i].X;
-                        _balls[i].Y = balls[i].Y;
+                        _balls[i].X = balls[i].Position.X;
+                        _balls[i].Y = balls[i].Position.Y;
                     }
                 }
             }

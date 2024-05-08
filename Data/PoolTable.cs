@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Data
             Random rand = new Random();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                _balls.Add(IBall.CreateBall(rand.Next(0, _width), rand.Next(0, _height), radius));
+                _balls.Add(IBall.CreateBall(new Vector2(rand.Next(0, _width), rand.Next(0, _height)), radius));
 
             }
             return _balls;

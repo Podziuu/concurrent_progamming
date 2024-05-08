@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,22 +11,19 @@ namespace Data
 {
     internal class Ball : IBall, IObservable<IBall>
     {
-        private float _x;
-        private float _y;
-        private float _xVelocity;
-        private float _yVelocity;
+        private Vector2 _position;
+        private Vector2 _velocity;
+        
         private readonly object _positionLock = new object();
         private readonly object _velocityLock = new object();
         private readonly int _radius;
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
 
-        public Ball(float x, float y, int radius)
+        public Ball(Vector2 pos, int radius)
         {
-            _x = x;
-            _y = y;
-            _xVelocity = 3;
-            _yVelocity = 3;
+            _position = pos;
+            _velocity = new Vector2(3, 3);
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
             //foreach (var observer in _observers)
@@ -34,38 +32,28 @@ namespace Data
             //}
         }
 
-        public override float X
+        public override Vector2 Position
         {
             get
             {
-                return _x;
+                return _position;
             }
         }
 
-        public override float Y
-        {
-            get 
-            {
-                return _y;
-            }
-        }
 
-        public override float XVelocity 
+
+        public override Vector2 Velocity 
         {
-            get { return _xVelocity; }
+            get { return _velocity; }
             set
             { 
-                _xVelocity = value;
+                lock (_velocityLock)
+                {
+                    _velocity = value;
+                }
             } 
         }
-        public override float YVelocity
-        {
-            get { return _yVelocity; }
-            set
-            {
-                _yVelocity = value;
-            }
-        }
+        
 
         public override int Radius
         {
@@ -104,8 +92,12 @@ namespace Data
             _isMoving = true;
             while (_isMoving)
             {
-                _x += _xVelocity;
-                _y += _yVelocity;
+
+                lock (_positionLock)
+                {
+                    _position += _velocity;
+                }
+                
                 await Task.Delay(20);
 
                 foreach (var observer in _observers)

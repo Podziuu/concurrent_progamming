@@ -1,4 +1,5 @@
 ﻿using Data;
+using System.Numerics;
 
 namespace Logic
 {
@@ -97,34 +98,34 @@ namespace Logic
 
         private void WallCollision(IBall ball)
         {
-            if (ball.X - ball.Radius <= 0 || ball.X + ball.Radius >= _data.Width)
+            if (ball.Position.X <= 0 || ball.Position.X + ball.Radius >= _data.Width)
             {
-                ball.XVelocity = -ball.XVelocity;
+                ball.Velocity = new Vector2(-ball.Velocity.X, ball.Velocity.Y);
             }
-            if (ball.Y - ball.Radius <= 0 || ball.Y + ball.Radius >= _data.Height)
+            if (ball.Position.Y <= 0 || ball.Position.Y + ball.Radius >= _data.Height)
             {
-                ball.YVelocity = -ball.YVelocity;
+                ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
             }
         }
 
         private void BallCollision(IBall ball)
         {
-            foreach (IBall otherBall in _data.GetAllBalls())
-            {
-                if (ball != otherBall)
-                {
-                    float distance = (float)Math.Sqrt(Math.Pow(ball.X - otherBall.X, 2) + Math.Pow(ball.Y - otherBall.Y, 2));
-                    if (distance <= ball.Radius + otherBall.Radius)
-                    {
-                        float tempX = ball.XVelocity;
-                        float tempY = ball.YVelocity;
-                        ball.XVelocity = otherBall.XVelocity;
-                        ball.YVelocity = otherBall.YVelocity;
-                        otherBall.XVelocity = tempX;
-                        otherBall.YVelocity = tempY;
-                    }
-                }
-            }
+            //foreach (IBall otherBall in _data.GetAllBalls())
+            //{
+            //    if (ball != otherBall)
+            //    {
+            //        float distance = (float)Math.Sqrt(Math.Pow(ball.X - otherBall.X, 2) + Math.Pow(ball.Y - otherBall.Y, 2));
+            //        if (distance <= ball.Radius + otherBall.Radius)
+            //        {
+            //            float tempX = ball.XVelocity;
+            //            float tempY = ball.YVelocity;
+            //            ball.XVelocity = otherBall.XVelocity;
+            //            ball.YVelocity = otherBall.YVelocity;
+            //            otherBall.XVelocity = tempX;
+            //            otherBall.YVelocity = tempY;
+            //        }
+            //    }
+            //}
         }
 
         public override IDisposable Subscribe(IObserver<LogicAbstractAPI> observer)

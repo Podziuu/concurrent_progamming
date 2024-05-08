@@ -6,7 +6,7 @@ namespace Data
     {
         public static DataAbstractAPI CreateApi()
         {
-            return new PoolTable(500, 300);
+            return new PoolTable(550, 300);
         }
         public abstract int Width { get; }
         public abstract int Height { get; }
