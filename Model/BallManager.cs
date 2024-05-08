@@ -81,6 +81,10 @@ namespace Model
 
         public override void StopGame()
         {
+            lock (_lock)
+            {
+                _balls.Clear();
+            }
             poolTable.StopGame();
         }
     }

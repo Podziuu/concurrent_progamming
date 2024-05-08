@@ -72,19 +72,27 @@ namespace Logic
 
         public void OnNext(IBall value)
         {
-            WallCollision(value);
-            lock (ballLock)
-            {
+
+            //lock (ballLock)
+            //{
                 foreach (IBall ball in _data.GetAllBalls())
                 {
-                    BallCollision(ball);
+                    foreach(IBall otherBall in _data.GetAllBalls())
+                    {
+                        if (ball != otherBall)
+                        {
+                            BallCollision(ball, otherBall);
+                        }
+                    }   
                 }
+            
 
-                // forward data to Model layer
-                foreach (var observer in _observers)
-                {
-                    observer.OnNext(this);
-                }
+
+            //}
+            WallCollision(value);
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(this);
             }
         }
 
@@ -100,22 +108,19 @@ namespace Logic
             }
         }
 
-        private void BallCollision(IBall ball)
+        private void BallCollision(IBall ball, IBall otherBall)
         {
             //foreach (IBall otherBall in _data.GetAllBalls())
             //{
             //    if (ball != otherBall)
             //    {
-            //        float distance = (float)Math.Sqrt(Math.Pow(ball.X - otherBall.X, 2) + Math.Pow(ball.Y - otherBall.Y, 2));
-            //        if (distance <= ball.Radius + otherBall.Radius)
-            //        {
-            //            float tempX = ball.XVelocity;
-            //            float tempY = ball.YVelocity;
-            //            ball.XVelocity = otherBall.XVelocity;
-            //            ball.YVelocity = otherBall.YVelocity;
-            //            otherBall.XVelocity = tempX;
-            //            otherBall.YVelocity = tempY;
-            //        }
+                    float distance = (float)Math.Sqrt(Math.Pow(ball.Position.X - otherBall.Position.X, 2) + Math.Pow(ball.Position.Y - otherBall.Position.Y, 2));
+                    if (distance < ball.Radius + otherBall.Radius)
+                    {
+                        Vector2 temp = ball.Velocity;
+                        ball.Velocity = otherBall.Velocity;
+                        otherBall.Velocity = temp;
+                    }
             //    }
             //}
         }

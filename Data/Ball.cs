@@ -22,8 +22,9 @@ namespace Data
 
         public Ball(Vector2 pos, int radius)
         {
+            Random random = new Random();
             _position = pos;
-            _velocity = new Vector2(3, 3);
+            _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
         }
