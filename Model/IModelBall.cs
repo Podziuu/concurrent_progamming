@@ -16,7 +16,6 @@ namespace Model
         public abstract float X { get; set; }
         public abstract float Y { get; set; }
         public abstract int Radius { get; }
-        public abstract void UpdateBall(Object s, PropertyChangedEventArgs e);
         public abstract event PropertyChangedEventHandler? PropertyChanged;
     }
 }
