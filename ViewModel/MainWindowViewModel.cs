@@ -38,7 +38,7 @@ namespace ViewModel
         public void StartGame()
         {
             int ballsAmount = int.Parse(BallsAmmount);
-            _model.CreateBalls(ballsAmount, 15);
+            _model.CreateBalls(ballsAmount, 10);
             _model.StartGame();
             OnPropertyChanged("Balls");
             StopButton.RaiseCanExecuteChanged();

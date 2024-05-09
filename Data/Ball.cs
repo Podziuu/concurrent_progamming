@@ -17,6 +17,7 @@ namespace Data
         private readonly object _positionLock = new object();
         private readonly object _velocityLock = new object();
         private readonly int _radius;
+        private readonly int mass = 5;
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
 
@@ -25,6 +26,7 @@ namespace Data
             Random random = new Random();
             _position = pos;
             _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
+            //_velocity = new Vector2(0, 0);
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
         }
@@ -53,6 +55,11 @@ namespace Data
         public override int Radius
         {
             get => _radius;
+        }
+
+        public override int Mass
+        {
+            get => mass;
         }
 
         public override bool IsMoving

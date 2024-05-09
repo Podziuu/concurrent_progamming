@@ -22,7 +22,13 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="{Binding Radius}" Height="{Binding Radius}" Fill="DarkOrange" />
+                    <Path Fill="DarkOrange">
+                        <Path.Data>
+                            <EllipseGeometry
+                                RadiusX="{Binding Radius}"
+                                RadiusY="{Binding Radius}"/>
+                        </Path.Data>
+                    </Path>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>

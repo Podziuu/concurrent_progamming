@@ -73,8 +73,8 @@ namespace Logic
         public void OnNext(IBall value)
         {
 
-            //lock (ballLock)
-            //{
+            lock (ballLock)
+            {
                 foreach (IBall ball in _data.GetAllBalls())
                 {
                     foreach(IBall otherBall in _data.GetAllBalls())
@@ -88,7 +88,7 @@ namespace Logic
             
 
 
-            //}
+            }
             WallCollision(value);
             foreach (var observer in _observers)
             {
@@ -98,11 +98,11 @@ namespace Logic
 
         private void WallCollision(IBall ball)
         {
-            if (ball.Position.X <= 0 || ball.Position.X + ball.Radius >= _data.Width)
+            if (ball.Position.X - ball.Radius <= 0 || ball.Position.X + ball.Radius >= _data.Width)
             {
                 ball.Velocity = new Vector2(-ball.Velocity.X, ball.Velocity.Y);
             }
-            if (ball.Position.Y <= 0 || ball.Position.Y + ball.Radius >= _data.Height)
+            if (ball.Position.Y - ball.Radius <= 0 || ball.Position.Y + ball.Radius >= _data.Height)
             {
                 ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
             }
@@ -110,18 +110,21 @@ namespace Logic
 
         private void BallCollision(IBall ball, IBall otherBall)
         {
-            //foreach (IBall otherBall in _data.GetAllBalls())
-            //{
-            //    if (ball != otherBall)
-            //    {
-                    float distance = (float)Math.Sqrt(Math.Pow(ball.Position.X - otherBall.Position.X, 2) + Math.Pow(ball.Position.Y - otherBall.Position.Y, 2));
-                    if (distance < ball.Radius + otherBall.Radius)
-                    {
-                        Vector2 temp = ball.Velocity;
-                        ball.Velocity = otherBall.Velocity;
-                        otherBall.Velocity = temp;
-                    }
-            //    }
+            //lock (ballLock)
+            //{ 
+            int distance = (int)Math.Sqrt(Math.Pow((ball.Position.X + ball.Velocity.X) - (otherBall.Position.X + otherBall.Velocity.X), 2) + Math.Pow((ball.Position.Y + ball.Velocity.Y) - (otherBall.Position.Y + otherBall.Velocity.Y), 2));
+
+            if (distance < ball.Radius + otherBall.Radius)
+            {
+                float firstX = (ball.Velocity.X * (ball.Mass - otherBall.Mass) + 2 * otherBall.Mass * otherBall.Velocity.X) / (ball.Mass + otherBall.Mass);
+                float firstY = (ball.Velocity.Y * (ball.Mass - otherBall.Mass) + 2 * otherBall.Mass * otherBall.Velocity.Y) / (ball.Mass + otherBall.Mass);
+                float secondX = (otherBall.Velocity.X * (otherBall.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity.X) / (ball.Mass + otherBall.Mass);
+                float secondY = (otherBall.Velocity.Y * (otherBall.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity.Y) / (ball.Mass + otherBall.Mass);
+                        
+                ball.Velocity = new Vector2(firstX, firstY);
+                otherBall.Velocity = new Vector2(secondX, secondY);
+            }
+            
             //}
         }
 
