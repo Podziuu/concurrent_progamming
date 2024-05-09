@@ -29,7 +29,6 @@ namespace Data
             for (int i = 0; i < ballsQuantity; i++)
             {
                 _balls.Add(IBall.CreateBall(new Vector2(rand.Next(0 + radius, _width - radius), rand.Next(0 + radius, _height - radius)), radius));
-                //_balls.Add(new Ball(new Vector2(0, 0), radius));
             }
             return _balls;
         }

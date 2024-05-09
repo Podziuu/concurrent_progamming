@@ -26,7 +26,6 @@ namespace Data
             Random random = new Random();
             _position = pos;
             _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
-            //_velocity = new Vector2(0, 0);
             _radius = radius;
             _observers = new List<IObserver<IBall>>();
         }
