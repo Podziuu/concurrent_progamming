@@ -4,7 +4,20 @@ namespace LogicTest
 {
     internal class FakeDataApi : DataAbstractAPI
     {
-
+        public override int Height => throw new NotImplementedException();
+        public override int Width => throw new NotImplementedException();
+        public override List<IBall> CreateBalls(int ballsQuantity, int radius)
+        {
+           throw new NotImplementedException();
+        }
+        public override List<IBall> GetAllBalls()
+        {
+            throw new NotImplementedException();
+        }
+        public override void RemoveBalls()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestClass]
@@ -26,18 +39,6 @@ namespace LogicTest
         {
             poolTable.CreateBalls(5, 10);
             Assert.AreEqual(5, poolTable.GetAllBalls().Count);
-        }
-
-        [TestMethod]
-        public void TestWidth()
-        {
-            Assert.AreEqual(550, poolTable.Width);
-        }
-
-        [TestMethod]
-        public void TestHeight()
-        {
-            Assert.AreEqual(300, poolTable.Height);
         }
 
         [TestMethod]

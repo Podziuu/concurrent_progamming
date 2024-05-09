@@ -47,19 +47,6 @@ namespace Model
             get => _radius;
         }
 
-        public override void UpdateBall(Object s, PropertyChangedEventArgs e)
-        {
-           IBall ball = (IBall)s;
-            if(e.PropertyName == "X")
-            {
-                X = ball.Position.X;
-            }
-            else if (e.PropertyName == "Y")
-            {
-                Y = ball.Position.Y;
-            }
-        }
-
         public override event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string name = null)
