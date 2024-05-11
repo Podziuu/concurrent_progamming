@@ -19,7 +19,7 @@ namespace Data
         public abstract int Radius { get; }
         public abstract int Mass { get; }
         public abstract bool IsMoving { get; set; }
-        public abstract Task Move();
+        public abstract void StartMoving();
         public abstract IDisposable Subscribe(IObserver<IBall> observer);
     }
 }

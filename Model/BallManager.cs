@@ -14,7 +14,6 @@ namespace Model
         private LogicAbstractAPI poolTable;
         private ObservableCollection<IModelBall> _balls = new ObservableCollection<IModelBall>();
         private IDisposable unsubscriber;
-        private List<(float X, float Y)> ballPositions = new List<(float X, float Y)>();
         private readonly object _lock = new object();
 
         public BallManager()
@@ -26,7 +25,6 @@ namespace Model
         public override void CreateBalls(int ballsQuantity, int radius)
         {
             _balls.Clear();
-            ballPositions.Clear();
             poolTable.CreateBalls(ballsQuantity, radius);
             List<IBall> balls = poolTable.GetAllBalls();
             for (int i = 0; i < ballsQuantity; i++)

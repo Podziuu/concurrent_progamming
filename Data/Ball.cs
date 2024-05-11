@@ -76,7 +76,13 @@ namespace Data
             return new Unsubscriber(_observers, observer);
         }
 
-        public override async Task Move()
+        public override void StartMoving()
+        {
+            Thread thread = new Thread(Move);
+            thread.Start();
+        }
+
+        private async void Move()
         {
             _isMoving = true;
             while (_isMoving)
@@ -86,8 +92,8 @@ namespace Data
                 {
                     _position += _velocity;
                 }
-                
-                await Task.Delay(20);
+                double velocity = Math.Sqrt(Math.Pow(_velocity.X, 2) + Math.Pow(_velocity.Y, 2));
+                await Task.Delay(TimeSpan.FromMilliseconds(1000 / 360 * velocity));
 
                 foreach (var observer in _observers)
                 {

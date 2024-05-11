@@ -20,8 +20,7 @@ namespace Logic
         {
             foreach (IBall ball in _data.GetAllBalls())
             {
-                Thread thread = new Thread(() => { ball.Move(); });
-                thread.Start();
+                ball.StartMoving();
             }
         }
 
