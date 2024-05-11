@@ -84,9 +84,6 @@ namespace Logic
                         }
                     }   
                 }
-            
-
-
             }
             WallCollision(value);
             foreach (var observer in _observers)
@@ -109,8 +106,6 @@ namespace Logic
 
         private void BallCollision(IBall ball, IBall otherBall)
         {
-            //lock (ballLock)
-            //{ 
             int distance = (int)Math.Sqrt(Math.Pow((ball.Position.X + ball.Velocity.X) - (otherBall.Position.X + otherBall.Velocity.X), 2) + Math.Pow((ball.Position.Y + ball.Velocity.Y) - (otherBall.Position.Y + otherBall.Velocity.Y), 2));
 
             if (distance < ball.Radius + otherBall.Radius)
@@ -123,8 +118,6 @@ namespace Logic
                 ball.Velocity = new Vector2(firstX, firstY);
                 otherBall.Velocity = new Vector2(secondX, secondY);
             }
-            
-            //}
         }
 
         public override IDisposable Subscribe(IObserver<LogicAbstractAPI> observer)
