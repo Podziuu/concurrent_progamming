@@ -13,5 +13,6 @@ namespace Data
         public abstract List<IBall> CreateBalls(int ballsQuantity, int radius);
         public abstract List<IBall> GetAllBalls();
         public abstract void RemoveBalls();
+        public abstract List<List<float>> getBallsPosition();
     }
 }

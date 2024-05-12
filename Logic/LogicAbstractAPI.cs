@@ -12,6 +12,7 @@ namespace Logic
         public abstract void StopGame();   
         public abstract List<IBall> GetAllBalls();
         public abstract void CreateBalls(int ballsQuantity, int radius);
+        public abstract List<List<float>> getBallsPosition();
         public abstract IDisposable Subscribe(IObserver<LogicAbstractAPI> observer);
     }
 }

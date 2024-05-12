@@ -26,10 +26,10 @@ namespace Model
         {
             _balls.Clear();
             poolTable.CreateBalls(ballsQuantity, radius);
-            List<IBall> balls = poolTable.GetAllBalls();
+            var ballPositions = poolTable.getBallsPosition();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                _balls.Add(new ModelBall(balls[i].Position.X, balls[i].Position.Y, radius));
+                _balls.Add(new ModelBall(ballPositions[i][0], ballPositions[i][1], radius));
             }
         }
 
@@ -57,13 +57,13 @@ namespace Model
         {
             lock (_lock)
             {
-                List<IBall> balls = poolTable.GetAllBalls();
-                if(balls.Count == _balls.Count)
+                var ballsPositions = poolTable.getBallsPosition();
+                if(ballsPositions.Count == _balls.Count)
                 {
-                    for (int i = 0; i < balls.Count; i++)
+                    for (int i = 0; i < ballsPositions.Count; i++)
                     {
-                        _balls[i].X = balls[i].Position.X;
-                        _balls[i].Y = balls[i].Position.Y;
+                        _balls[i].X = ballsPositions[i][0];
+                        _balls[i].Y = ballsPositions[i][1];
                     }
                 }
             }

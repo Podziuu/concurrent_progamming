@@ -18,6 +18,10 @@ namespace LogicTest
         {
             throw new NotImplementedException();
         }
+        public override List<List<float>> getBallsPosition()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestClass]

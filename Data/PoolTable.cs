@@ -42,5 +42,16 @@ namespace Data
         {
             _balls.Clear();
         }
+
+        public override List<List<float>> getBallsPosition()
+        {
+            var ballPositions = new List<List<float>>();
+            foreach (IBall ball in _balls)
+            {
+                var ballPosition = new List<float>() { ball.Position.X, ball.Position.Y};
+                ballPositions.Add(ballPosition);
+            }
+            return ballPositions;
+        }
     }
 }

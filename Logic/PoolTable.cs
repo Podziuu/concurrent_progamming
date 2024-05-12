@@ -48,6 +48,11 @@ namespace Logic
             return _data.GetAllBalls();
         }
 
+        public override List<List<float>> getBallsPosition()
+        {
+            return _data.getBallsPosition();
+        }
+
 
         public void Subscribe(IObservable<IBall> provider)
         {
