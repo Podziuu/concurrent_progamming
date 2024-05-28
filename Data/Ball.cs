@@ -32,13 +32,22 @@ namespace Data
         {
             get
             {
-                return _position;
+                lock (_positionLock)
+                {
+                    return _position;
+                }
             }
         }
 
         public override Vector2 Velocity 
         {
-            get { return _velocity; }
+            get
+            {
+                lock (_velocityLock)
+                {
+                    return _velocity;
+                }
+            }
             set
             { 
                 lock (_velocityLock)
