@@ -10,14 +10,12 @@ namespace Data
 {
     public abstract class IBall : IObservable<IBall>
     {
-        public static IBall CreateBall(Vector2 pos, int radius)
+        public static IBall CreateBall(Vector2 pos)
         {
-            return new Ball(pos, radius);
+            return new Ball(pos);
         }
         public abstract Vector2 Position { get; }
         public abstract Vector2 Velocity { get; set; }
-        public abstract int Radius { get; }
-        public abstract int Mass { get; }
         public abstract bool IsMoving { get; set; }
         public abstract void StartMoving();
         public abstract IDisposable Subscribe(IObserver<IBall> observer);

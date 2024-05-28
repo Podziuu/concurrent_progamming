@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -16,17 +17,14 @@ namespace Data
         
         private readonly object _positionLock = new object();
         private readonly object _velocityLock = new object();
-        private readonly int _radius;
-        private readonly int mass = 5;
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
 
-        public Ball(Vector2 pos, int radius)
+        public Ball(Vector2 pos)
         {
             Random random = new Random();
             _position = pos;
-            _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
-            _radius = radius;
+            _velocity = new Vector2((float)random.NextDouble(), (float)random.NextDouble());
             _observers = new List<IObserver<IBall>>();
         }
 
@@ -48,17 +46,6 @@ namespace Data
                     _velocity = value;
                 }
             } 
-        }
-        
-
-        public override int Radius
-        {
-            get => _radius;
-        }
-
-        public override int Mass
-        {
-            get => mass;
         }
 
         public override bool IsMoving
@@ -85,19 +72,28 @@ namespace Data
         private async void Move()
         {
             _isMoving = true;
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+            float startingTime = 0f;
             while (_isMoving)
             {
+                float currentTime = stopwatch.ElapsedMilliseconds;
+                float delta = currentTime - startingTime;
 
-                lock (_positionLock)
+                if(delta >= 1f / 60f)
                 {
-                    _position += _velocity;
-                }
-                double velocity = Math.Sqrt(Math.Pow(_velocity.X, 2) + Math.Pow(_velocity.Y, 2));
-                await Task.Delay(TimeSpan.FromMilliseconds(1000 / 360 * velocity));
+                    lock (_positionLock)
+                    {
+                        _position += _velocity;
+                    }
 
-                foreach (var observer in _observers)
-                {
-                    observer.OnNext(this);
+                    startingTime = currentTime;
+                    await Task.Delay((int)delta / 1000);
+
+                    foreach (var observer in _observers)
+                    {
+                        observer.OnNext(this);
+                    }
                 }
             }
         }

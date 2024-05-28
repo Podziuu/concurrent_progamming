@@ -99,11 +99,11 @@ namespace Logic
 
         private void WallCollision(IBall ball)
         {
-            if (ball.Position.X - ball.Radius <= 0 || ball.Position.X + ball.Radius >= _data.Width)
+            if (ball.Position.X - 10 <= 0 || ball.Position.X + 10 >= _data.Width)
             {
                 ball.Velocity = new Vector2(-ball.Velocity.X, ball.Velocity.Y);
             }
-            if (ball.Position.Y - ball.Radius <= 0 || ball.Position.Y + ball.Radius >= _data.Height)
+            if (ball.Position.Y - 10 <= 0 || ball.Position.Y + 10 >= _data.Height)
             {
                 ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
             }
@@ -113,12 +113,12 @@ namespace Logic
         {
             int distance = (int)Math.Sqrt(Math.Pow((ball.Position.X + ball.Velocity.X) - (otherBall.Position.X + otherBall.Velocity.X), 2) + Math.Pow((ball.Position.Y + ball.Velocity.Y) - (otherBall.Position.Y + otherBall.Velocity.Y), 2));
 
-            if (distance < ball.Radius + otherBall.Radius)
+            if (distance < 20)
             {
-                float firstX = (ball.Velocity.X * (ball.Mass - otherBall.Mass) + 2 * otherBall.Mass * otherBall.Velocity.X) / (ball.Mass + otherBall.Mass);
-                float firstY = (ball.Velocity.Y * (ball.Mass - otherBall.Mass) + 2 * otherBall.Mass * otherBall.Velocity.Y) / (ball.Mass + otherBall.Mass);
-                float secondX = (otherBall.Velocity.X * (otherBall.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity.X) / (ball.Mass + otherBall.Mass);
-                float secondY = (otherBall.Velocity.Y * (otherBall.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity.Y) / (ball.Mass + otherBall.Mass);
+                float firstX = (2 * otherBall.Velocity.X) / 2;
+                float firstY = (2 * otherBall.Velocity.Y) / 2;
+                float secondX = (2 * ball.Velocity.X) / 2;
+                float secondY = (2 * ball.Velocity.Y) / 2;
                         
                 ball.Velocity = new Vector2(firstX, firstY);
                 otherBall.Velocity = new Vector2(secondX, secondY);
