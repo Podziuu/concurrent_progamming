@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Data.Logger;
 
 namespace Data
 {
@@ -19,6 +20,7 @@ namespace Data
         private readonly object _velocityLock = new object();
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
+        private readonly Logger _logger = new Logger();
 
         public Ball(Vector2 pos)
         {
@@ -95,7 +97,7 @@ namespace Data
                     {
                         _position += _velocity;
                     }
-
+                    _logger.Log(this);
                     startingTime = currentTime;
                     await Task.Delay((int)delta / 1000);
 

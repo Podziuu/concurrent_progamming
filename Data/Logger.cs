@@ -10,9 +10,33 @@ using System.Threading.Tasks;
 
 namespace Data
 {
+    public class BallToLog
+    {
+        public int BallId { get; }
+        public Vector2 Position { get; }
+        public Vector2 Velocity { get; }
+        //public float PositionX { get; }
+        //public float PositionY { get; }
+        //public float VelocityX { get; }
+        //public float VelocityY { get; }
+        //public string Date { get; }
+
+        public BallToLog(int ballID, Vector2 pos, Vector2 vel)
+        {
+            BallId = ballID;
+            Position = pos;
+            Velocity = vel;
+        }
+
+    }
+
     internal class Logger
     {
-        private readonly ConcurrentQueue<JObject> _queue = new ConcurrentQueue<JObject>();
+        
+
+
+
+        private readonly ConcurrentQueue<BallToLog> _queue = new ConcurrentQueue<BallToLog>();
         private readonly JArray _logArray;
         private readonly string _logFilePath;
         private Task _loggingTask;
@@ -41,6 +65,30 @@ namespace Data
                 FileStream file = File.Create(_logFilePath);
                 file.Close();
             }
+
+        }
+
+        internal void Log(IBall ball)
+        {
+            _queue.Enqueue(new BallToLog(1, ball.Position, ball.Velocity));
+            WriteToFile();
+        }
+
+        private void WriteToFile()
+        {
+            Task.Run(async () =>
+            {
+                using StreamWriter _streamWriter = new StreamWriter(_logFilePath);
+                while (true)
+                {
+                    while (_queue.TryDequeue(out BallToLog ball))
+                    {
+                        string jsonString = JsonConvert.SerializeObject(ball);
+                        _streamWriter.WriteLine(jsonString);
+                    }
+                    await _streamWriter.FlushAsync();
+                }
+            });
         }
 
     }
