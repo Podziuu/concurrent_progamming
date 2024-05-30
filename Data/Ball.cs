@@ -13,6 +13,7 @@ namespace Data
 {
     internal class Ball : IBall, IObservable<IBall>
     {
+        private int _ballId;
         private Vector2 _position;
         private Vector2 _velocity;
         
@@ -20,12 +21,14 @@ namespace Data
         private readonly object _velocityLock = new object();
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
-        private readonly Logger _logger = new Logger();
+        private readonly Logger _logger;
 
-        public Ball(Vector2 pos)
+        public Ball(int id, Vector2 pos, Logger log)
         {
             Random random = new Random();
+            _ballId = id;
             _position = pos;
+            _logger = log;
             _velocity = new Vector2((float)random.NextDouble(), (float)random.NextDouble());
             _observers = new List<IObserver<IBall>>();
         }
@@ -40,6 +43,8 @@ namespace Data
                 }
             }
         }
+
+        public override int BallId => _ballId;
 
         public override Vector2 Velocity 
         {

@@ -11,12 +11,14 @@ namespace Data
     {
         private readonly int _width;
         private readonly int _height;
+        private Logger _logger = new Logger();
         private List<IBall> _balls = new List<IBall>();
 
         public PoolTable(int width, int height)
         {
             _width = width;
             _height = height;
+            
         }
 
         public override int Width => _width;
@@ -28,7 +30,7 @@ namespace Data
             Random rand = new Random();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                _balls.Add(IBall.CreateBall(new Vector2(rand.Next(0 + radius, _width - radius), rand.Next(0 + radius, _height - radius))));
+                _balls.Add(IBall.CreateBall(i + 1, new Vector2(rand.Next(0 + radius, _width - radius), rand.Next(0 + radius, _height - radius)), _logger));
             }
             return _balls;
         }
