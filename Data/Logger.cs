@@ -19,11 +19,7 @@ namespace Data
             public int BallId { get; }
             public Vector2 Position { get; }
             public Vector2 Velocity { get; }
-            //public float PositionX { get; }
-            //public float PositionY { get; }
-            //public float VelocityX { get; }
-            //public float VelocityY { get; }
-            //public string Date { get; }
+            
 
             public BallToLog(int ballID, Vector2 pos, Vector2 vel)
             {
@@ -36,32 +32,11 @@ namespace Data
 
         private readonly ConcurrentQueue<BallToLog> _queue = new ConcurrentQueue<BallToLog>();
         private readonly string _logFilePath;
-        //private Task _loggingTask;
 
         internal Logger()
         {
             string PathToSave = Path.GetTempPath();
             _logFilePath = Path.Combine(PathToSave, "log.json");
-
-            //if (File.Exists(_logFilePath))
-            //{
-            //    try
-            //    {
-            //        string input = File.ReadAllText(_logFilePath);
-            //        _logArray = JArray.Parse(input);
-            //    }
-            //    catch (JsonReaderException)
-            //    {
-            //        _logArray = new JArray();
-            //    }
-
-            //}
-            //else
-            //{
-            //    _logArray = new JArray();
-            //    FileStream file = File.Create(_logFilePath);
-            //    file.Close();
-            //}
             WriteToFile();
 
 
