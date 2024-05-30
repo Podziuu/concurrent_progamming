@@ -21,9 +21,9 @@ namespace Data
         private readonly object _velocityLock = new object();
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
-        private readonly Logger _logger;
+        private readonly LoggerAPI _logger;
 
-        public Ball(int id, Vector2 pos, Logger log)
+        public Ball(int id, Vector2 pos, LoggerAPI log)
         {
             Random random = new Random();
             _ballId = id;
@@ -102,7 +102,7 @@ namespace Data
                     {
                         _position += _velocity;
                     }
-                    _logger.Log(this);
+                    _logger.Log(this, DateTime.Now.ToString());
                     startingTime = currentTime;
                     await Task.Delay((int)delta / 1000);
 

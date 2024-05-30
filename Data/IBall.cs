@@ -10,7 +10,7 @@ namespace Data
 {
     public abstract class IBall : IObservable<IBall>
     {
-        public static IBall CreateBall(int id, Vector2 pos, Logger log)
+        public static IBall CreateBall(int id, Vector2 pos, LoggerAPI log)
         {
             return new Ball(id, pos, log);
         }

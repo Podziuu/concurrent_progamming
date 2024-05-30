@@ -10,28 +10,30 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    
-
-    public class Logger
+    internal class Logger : LoggerAPI
     {
         private class BallToLog
         {
             public int BallId { get; }
             public Vector2 Position { get; }
             public Vector2 Velocity { get; }
+            public string Date { get; }
             
 
-            public BallToLog(int ballID, Vector2 pos, Vector2 vel)
+            public BallToLog(int ballID, Vector2 pos, Vector2 vel, string date)
             {
                 BallId = ballID;
                 Position = pos;
                 Velocity = vel;
+                Date = date;
             }
 
         }
 
         private readonly ConcurrentQueue<BallToLog> _queue = new ConcurrentQueue<BallToLog>();
         private readonly string _logFilePath;
+        private readonly int _cacheSize = 1000;
+        private bool _isOverCacheSize = false;
 
         internal Logger()
         {
@@ -42,9 +44,14 @@ namespace Data
 
         }
 
-        internal void Log(IBall ball)
+        public override void Log(IBall ball, string date)
         {
-            _queue.Enqueue(new BallToLog(ball.BallId, ball.Position, ball.Velocity));
+            _queue.Enqueue(new BallToLog(ball.BallId, ball.Position, ball.Velocity, date));
+
+            if (_queue.Count > _cacheSize && !_isOverCacheSize)
+            {
+                _isOverCacheSize = true;
+            }
         }
 
         private void WriteToFile()
@@ -58,6 +65,12 @@ namespace Data
                     {
                         string jsonString = JsonConvert.SerializeObject(ball);
                         _streamWriter.WriteLine(jsonString);
+
+                        if(_isOverCacheSize)
+                        {
+                            _streamWriter.WriteLine("Cache is over size.");
+                            _isOverCacheSize = false;
+                        }
                     }
                     await _streamWriter.FlushAsync();
                 }
