@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace Model
         private float _y;
         private readonly int _radius;
 
+        private float scale = 1.0f;
+
         public ModelBall(float x, float y, int radius)
         {
             _x = x;
@@ -25,7 +28,7 @@ namespace Model
 
         public override float X
         {
-            get => _x;
+            get => _x * scale;
             set {
                 _x = value;
                 OnPropertyChanged();
@@ -34,7 +37,7 @@ namespace Model
 
         public override float Y
         {
-            get => _y;
+            get => _y * scale;
             set
             {
                 _y = value;
@@ -44,7 +47,7 @@ namespace Model
 
         public override int Radius
         {
-            get => _radius;
+            get => _radius * (int)scale;
         }
 
         public override event PropertyChangedEventHandler? PropertyChanged;
