@@ -18,7 +18,6 @@ namespace Data
             public Vector2 Position { get; }
             public Vector2 Velocity { get; }
             public string Date { get; }
-            
 
             public BallToLog(int ballID, Vector2 pos, Vector2 vel, string date)
             {
@@ -27,7 +26,6 @@ namespace Data
                 Velocity = vel;
                 Date = date;
             }
-
         }
 
         private readonly ConcurrentQueue<BallToLog> _queue = new ConcurrentQueue<BallToLog>();
@@ -40,8 +38,6 @@ namespace Data
             string PathToSave = Path.GetTempPath();
             _logFilePath = Path.Combine(PathToSave, "log.json");
             WriteToFile();
-
-
         }
 
         public override void Log(IBall ball, string date)
@@ -76,6 +72,5 @@ namespace Data
                 }
             });
         }
-
     }
 }

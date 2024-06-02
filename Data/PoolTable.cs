@@ -11,14 +11,13 @@ namespace Data
     {
         private readonly int _width;
         private readonly int _height;
-        private Logger _logger = new Logger();
+        private LoggerAPI _logger = new Logger();
         private List<IBall> _balls = new List<IBall>();
 
         public PoolTable(int width, int height)
         {
             _width = width;
             _height = height;
-            
         }
 
         public override int Width => _width;
@@ -55,7 +54,5 @@ namespace Data
             }
             return ballPositions;
         }
-
-
     }
 }
