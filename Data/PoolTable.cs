@@ -13,6 +13,7 @@ namespace Data
         private readonly int _height;
         private LoggerAPI _logger = new Logger();
         private List<IBall> _balls = new List<IBall>();
+        private readonly object ballLock = new object();
 
         public PoolTable(int width, int height)
         {
@@ -47,10 +48,13 @@ namespace Data
         public override List<List<float>> getBallsPosition()
         {
             var ballPositions = new List<List<float>>();
-            foreach (IBall ball in _balls)
+            lock (ballLock)
             {
-                var ballPosition = new List<float>() { ball.Position.X, ball.Position.Y};
-                ballPositions.Add(ballPosition);
+                foreach (IBall ball in _balls)
+                {
+                    var ballPosition = new List<float>() { ball.Position.X, ball.Position.Y };
+                    ballPositions.Add(ballPosition);
+                }
             }
             return ballPositions;
         }

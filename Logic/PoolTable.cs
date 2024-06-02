@@ -9,6 +9,7 @@ namespace Logic
         private readonly object ballLock = new object();
         private IDisposable unsubscriber;
         List<IObserver<LogicAbstractAPI>> _observers;
+        private readonly object _lock = new object();
 
         public PoolTable(DataAbstractAPI data)
         {
@@ -26,11 +27,13 @@ namespace Logic
 
         public override void StopGame()
         {
-            foreach (IBall ball in _data.GetAllBalls())
+            lock (_lock)
             {
-                ball.IsMoving = false;
+                foreach (IBall ball in _data.GetAllBalls())
+                {
+                    ball.IsMoving = false;
+                }
             }
-
             _data.RemoveBalls();
         }
 
@@ -50,7 +53,10 @@ namespace Logic
 
         public override List<List<float>> getBallsPosition()
         {
-            return _data.getBallsPosition();
+            lock (_lock)
+            {
+                return _data.getBallsPosition();
+            }
         }
 
 
@@ -81,13 +87,10 @@ namespace Logic
             {
                 foreach (IBall ball in _data.GetAllBalls())
                 {
-                    foreach(IBall otherBall in _data.GetAllBalls())
+                    if (ball != value)
                     {
-                        if (ball != otherBall)
-                        {
-                            BallCollision(ball, otherBall);
-                        }
-                    }   
+                        BallCollision(ball, value);
+                    }
                 }
             }
             WallCollision(value);

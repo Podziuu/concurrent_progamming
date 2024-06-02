@@ -29,7 +29,7 @@ namespace Data
             _ballId = id;
             _position = pos;
             _logger = log;
-            _velocity = new Vector2((float)random.NextDouble(), (float)random.NextDouble());
+            _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
             _observers = new List<IObserver<IBall>>();
         }
 
@@ -104,7 +104,7 @@ namespace Data
                     }
                     _logger.Log(this, DateTime.Now.ToString());
                     startingTime = currentTime;
-                    await Task.Delay((int)delta / 1000);
+                    await Task.Delay(TimeSpan.FromSeconds(1f / 60f));
 
                     foreach (var observer in _observers)
                     {

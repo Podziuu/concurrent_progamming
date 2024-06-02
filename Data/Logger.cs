@@ -42,11 +42,13 @@ namespace Data
 
         public override void Log(IBall ball, string date)
         {
-            _queue.Enqueue(new BallToLog(ball.BallId, ball.Position, ball.Velocity, date));
-
-            if (_queue.Count > _cacheSize && !_isOverCacheSize)
+            if (!_isOverCacheSize)
             {
-                _isOverCacheSize = true;
+                _queue.Enqueue(new BallToLog(ball.BallId, ball.Position, ball.Velocity, date));
+                if(_queue.Count > _cacheSize && !_isOverCacheSize)
+                {
+                    _isOverCacheSize = true;
+                }
             }
         }
 
