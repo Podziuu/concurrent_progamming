@@ -10,9 +10,9 @@ namespace Data
 {
     public abstract class IBall : IObservable<IBall>
     {
-        public static IBall CreateBall(int id, Vector2 pos, LoggerAPI log)
+        public static IBall CreateBall(int id, Vector2 pos)
         {
-            return new Ball(id, pos, log);
+            return new Ball(id, pos);
         }
         public abstract Vector2 Position { get; }
         public abstract Vector2 Velocity { get; set; }

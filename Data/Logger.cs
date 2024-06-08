@@ -5,21 +5,22 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Data
 {
-    internal class Logger : LoggerAPI
+    internal class Logger
     {
         private class BallToLog
         {
             public int BallId { get; }
             public Vector2 Position { get; }
             public Vector2 Velocity { get; }
-            public string Date { get; }
+            public DateTime Date { get; }
 
-            public BallToLog(int ballID, Vector2 pos, Vector2 vel, string date)
+            public BallToLog(int ballID, Vector2 pos, Vector2 vel, DateTime date)
             {
                 BallId = ballID;
                 Position = pos;
@@ -28,27 +29,35 @@ namespace Data
             }
         }
 
-        private readonly ConcurrentQueue<BallToLog> _queue = new ConcurrentQueue<BallToLog>();
+        private readonly BlockingCollection<BallToLog> _queue;
         private readonly string _logFilePath;
-        private readonly int _cacheSize = 1000;
+        private readonly int _cacheSize = 100;
+        private static Logger? _logger;
         private bool _isOverCacheSize = false;
+        private readonly object _lock = new object();
 
         internal Logger()
         {
+            _queue = new BlockingCollection<BallToLog>(new ConcurrentQueue<BallToLog>(), _cacheSize);
             string PathToSave = Path.GetTempPath();
             _logFilePath = Path.Combine(PathToSave, "log.json");
             WriteToFile();
         }
 
-        public override void Log(IBall ball, string date)
+        public static Logger CreateLogger()
         {
-            if (!_isOverCacheSize)
+            if (_logger != null) return _logger;
+            _logger = new Logger();
+            return _logger;
+        }
+
+        public void Log(IBall ball, DateTime date)
+        {
+            bool isAdded = _queue.TryAdd(new BallToLog(ball.BallId, ball.Position, ball.Velocity, date));
+            if (isAdded) return;
+            lock (_lock)
             {
-                _queue.Enqueue(new BallToLog(ball.BallId, ball.Position, ball.Velocity, date));
-                if(_queue.Count > _cacheSize && !_isOverCacheSize)
-                {
-                    _isOverCacheSize = true;
-                }
+                _isOverCacheSize = true;
             }
         }
 
@@ -56,20 +65,25 @@ namespace Data
         {
             Task.Run(async () =>
             {
-                using StreamWriter _streamWriter = new StreamWriter(_logFilePath);
-                while (true)
+                using StreamWriter _streamWriter = new StreamWriter(_logFilePath, false, Encoding.UTF8);
+                while(!_queue.IsCompleted)
                 {
-                    while (_queue.TryDequeue(out BallToLog ball))
-                    {
-                        string jsonString = JsonConvert.SerializeObject(ball);
-                        _streamWriter.WriteLine(jsonString);
+                    bool isOverflow = false;
 
+                    lock(_lock)
+                    {
                         if(_isOverCacheSize)
                         {
-                            _streamWriter.WriteLine("Cache is over size.");
+                            isOverflow = true;
                             _isOverCacheSize = false;
                         }
                     }
+
+                    if(isOverflow) await _streamWriter.WriteLineAsync("Cache is over size.");
+
+                    BallToLog ball = _queue.Take();
+                    string jsonString = JsonConvert.SerializeObject(ball);
+                    await _streamWriter.WriteLineAsync(jsonString);
                     await _streamWriter.FlushAsync();
                 }
             });

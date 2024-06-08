@@ -11,7 +11,6 @@ namespace Data
     {
         private readonly int _width;
         private readonly int _height;
-        private LoggerAPI _logger = new Logger();
         private List<IBall> _balls = new List<IBall>();
         private readonly object ballLock = new object();
 
@@ -30,7 +29,7 @@ namespace Data
             Random rand = new Random();
             for (int i = 0; i < ballsQuantity; i++)
             {
-                _balls.Add(IBall.CreateBall(i + 1, new Vector2(rand.Next(0 + radius, _width - radius), rand.Next(0 + radius, _height - radius)), _logger));
+                _balls.Add(IBall.CreateBall(i + 1, new Vector2(rand.Next(0 + radius, _width - radius), rand.Next(0 + radius, _height - radius))));
             }
             return _balls;
         }

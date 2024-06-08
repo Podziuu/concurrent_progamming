@@ -21,14 +21,14 @@ namespace Data
         private readonly object _velocityLock = new object();
         private bool _isMoving;
         List<IObserver<IBall>> _observers;
-        private readonly LoggerAPI _logger;
+        private readonly Logger _logger;
 
-        public Ball(int id, Vector2 pos, LoggerAPI log)
+        public Ball(int id, Vector2 pos)
         {
             Random random = new Random();
             _ballId = id;
             _position = pos;
-            _logger = log;
+            _logger = Logger.CreateLogger();
             _velocity = new Vector2(random.Next(1, 5), random.Next(1, 5));
             _observers = new List<IObserver<IBall>>();
         }
@@ -102,7 +102,7 @@ namespace Data
                     {
                         _position += _velocity;
                     }
-                    _logger.Log(this, DateTime.Now.ToString());
+                    _logger.Log(this, DateTime.Now);
                     startingTime = currentTime;
                     await Task.Delay(TimeSpan.FromSeconds(1f / 60f));
 
