@@ -34,6 +34,7 @@ namespace Data
         private readonly int _cacheSize = 100;
         private static Logger? _logger;
         private bool _isOverCacheSize = false;
+        private static readonly object _singletonLock = new object();
         private readonly object _lock = new object();
 
         internal Logger()
@@ -46,9 +47,12 @@ namespace Data
 
         public static Logger CreateLogger()
         {
-            if (_logger != null) return _logger;
-            _logger = new Logger();
-            return _logger;
+            lock (_singletonLock)
+            {
+                if (_logger != null) return _logger;
+                _logger = new Logger();
+                return _logger;
+            }
         }
 
         public void Log(IBall ball, DateTime date)
@@ -66,20 +70,20 @@ namespace Data
             Task.Run(async () =>
             {
                 using StreamWriter _streamWriter = new StreamWriter(_logFilePath, false, Encoding.UTF8);
-                while(!_queue.IsCompleted)
+                while (!_queue.IsCompleted)
                 {
                     bool isOverflow = false;
 
-                    lock(_lock)
+                    lock (_lock)
                     {
-                        if(_isOverCacheSize)
+                        if (_isOverCacheSize)
                         {
                             isOverflow = true;
                             _isOverCacheSize = false;
                         }
                     }
 
-                    if(isOverflow) await _streamWriter.WriteLineAsync("Cache is over size.");
+                    if (isOverflow) await _streamWriter.WriteLineAsync("Cache is over size.");
 
                     BallToLog ball = _queue.Take();
                     string jsonString = JsonConvert.SerializeObject(ball);
